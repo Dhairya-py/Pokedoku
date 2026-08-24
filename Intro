@@ -1,0 +1,1272 @@
+# Pokedoku Pokédex List
+
+This Pokédex list is the built-in answer pool for the pure Python Pokedoku game. It includes Pokémon and forms from Generations 1 through 9, including regional variants, Mega Evolutions, Primal forms, Gigantamax forms, and Dynamax eligibility. The game uses this list to check whether an answer matches both the row clue and the column clue in each Pokedoku cell.
+
+The generation shown is the gameplay generation used by the game. Normal Pokémon use their original species generation, while special forms use the generation where that form or mechanic debuted. For example, Mega Evolutions count as Generation 6, Alolan forms count as Generation 7, Galarian, Hisuian, and Gigantamax forms count as Generation 8, and Paldean forms count as Generation 9.
+
+## Tags Used
+
+- **Legendary**: Legendary Pokémon
+- **Mythical**: Mythical Pokémon
+- **Starter**: Starter Pokémon
+- **Baby**: Baby Pokémon
+- **Regional**: Alolan, Galarian, Hisuian, or Paldean form
+- **Mega/Primal**: Mega Evolution or Primal form
+- **Gmax**: Gigantamax form
+- **No Dynamax**: Pokémon/form cannot Dynamax in the game rules
+
+## Pokédex Answer Pool
+
+### Generation 1
+| Pokémon/Form | Type(s) | Tags |
+|---|---|---|
+| Abra | Psychic | — |
+| Aerodactyl | Rock / Flying | — |
+| Alakazam | Psychic | — |
+| Arbok | Poison | — |
+| Arcanine | Fire | — |
+| Articuno | Ice / Flying | Legendary |
+| Beedrill | Bug / Poison | — |
+| Bellsprout | Grass / Poison | — |
+| Blastoise | Water | — |
+| Bulbasaur | Grass / Poison | Starter |
+| Butterfree | Bug / Flying | — |
+| Caterpie | Bug | — |
+| Chansey | Normal | — |
+| Charizard | Fire / Flying | — |
+| Charmander | Fire | Starter |
+| Charmeleon | Fire | — |
+| Clefable | Fairy | — |
+| Clefairy | Fairy | — |
+| Cloyster | Water / Ice | — |
+| Cubone | Ground | — |
+| Dewgong | Water / Ice | — |
+| Diglett | Ground | — |
+| Ditto | Normal | — |
+| Dodrio | Normal / Flying | — |
+| Doduo | Normal / Flying | — |
+| Dragonair | Dragon | — |
+| Dragonite | Dragon / Flying | — |
+| Dratini | Dragon | — |
+| Drowzee | Psychic | — |
+| Dugtrio | Ground | — |
+| Eevee | Normal | — |
+| Ekans | Poison | — |
+| Electabuzz | Electric | — |
+| Electrode | Electric | — |
+| Exeggcute | Grass / Psychic | — |
+| Exeggutor | Grass / Psychic | — |
+| Farfetchd | Normal / Flying | — |
+| Fearow | Normal / Flying | — |
+| Flareon | Fire | — |
+| Gastly | Ghost / Poison | — |
+| Gengar | Ghost / Poison | — |
+| Geodude | Rock / Ground | — |
+| Gloom | Grass / Poison | — |
+| Golbat | Poison / Flying | — |
+| Goldeen | Water | — |
+| Golduck | Water | — |
+| Golem | Rock / Ground | — |
+| Graveler | Rock / Ground | — |
+| Grimer | Poison | — |
+| Growlithe | Fire | — |
+| Gyarados | Water / Flying | — |
+| Haunter | Ghost / Poison | — |
+| Hitmonchan | Fighting | — |
+| Hitmonlee | Fighting | — |
+| Horsea | Water | — |
+| Hypno | Psychic | — |
+| Ivysaur | Grass / Poison | — |
+| Jigglypuff | Normal / Fairy | — |
+| Jolteon | Electric | — |
+| Jynx | Ice / Psychic | — |
+| Kabuto | Rock / Water | — |
+| Kabutops | Rock / Water | — |
+| Kadabra | Psychic | — |
+| Kakuna | Bug / Poison | — |
+| Kangaskhan | Normal | — |
+| Kingler | Water | — |
+| Koffing | Poison | — |
+| Krabby | Water | — |
+| Lapras | Water / Ice | — |
+| Lickitung | Normal | — |
+| Machamp | Fighting | — |
+| Machoke | Fighting | — |
+| Machop | Fighting | — |
+| Magikarp | Water | — |
+| Magmar | Fire | — |
+| Magnemite | Electric / Steel | — |
+| Magneton | Electric / Steel | — |
+| Mankey | Fighting | — |
+| Marowak | Ground | — |
+| Meowth | Normal | — |
+| Metapod | Bug | — |
+| Mew | Psychic | Mythical |
+| Mewtwo | Psychic | Legendary |
+| Moltres | Fire / Flying | Legendary |
+| Mr Mime | Psychic / Fairy | — |
+| Muk | Poison | — |
+| Nidoking | Poison / Ground | — |
+| Nidoqueen | Poison / Ground | — |
+| Nidoran F | Poison | — |
+| Nidoran M | Poison | — |
+| Nidorina | Poison | — |
+| Nidorino | Poison | — |
+| Ninetales | Fire | — |
+| Oddish | Grass / Poison | — |
+| Omanyte | Rock / Water | — |
+| Omastar | Rock / Water | — |
+| Onix | Rock / Ground | — |
+| Paras | Bug / Grass | — |
+| Parasect | Bug / Grass | — |
+| Persian | Normal | — |
+| Pidgeot | Normal / Flying | — |
+| Pidgeotto | Normal / Flying | — |
+| Pidgey | Normal / Flying | — |
+| Pikachu | Electric | — |
+| Pinsir | Bug | — |
+| Poliwag | Water | — |
+| Poliwhirl | Water | — |
+| Poliwrath | Water / Fighting | — |
+| Ponyta | Fire | — |
+| Porygon | Normal | — |
+| Primeape | Fighting | — |
+| Psyduck | Water | — |
+| Raichu | Electric | — |
+| Rapidash | Fire | — |
+| Raticate | Normal | — |
+| Rattata | Normal | — |
+| Rhydon | Ground / Rock | — |
+| Rhyhorn | Ground / Rock | — |
+| Sandshrew | Ground | — |
+| Sandslash | Ground | — |
+| Scyther | Bug / Flying | — |
+| Seadra | Water | — |
+| Seaking | Water | — |
+| Seel | Water | — |
+| Shellder | Water | — |
+| Slowbro | Water / Psychic | — |
+| Slowpoke | Water / Psychic | — |
+| Snorlax | Normal | — |
+| Spearow | Normal / Flying | — |
+| Squirtle | Water | Starter |
+| Starmie | Water / Psychic | — |
+| Staryu | Water | — |
+| Tangela | Grass | — |
+| Tauros | Normal | — |
+| Tentacool | Water / Poison | — |
+| Tentacruel | Water / Poison | — |
+| Vaporeon | Water | — |
+| Venomoth | Bug / Poison | — |
+| Venonat | Bug / Poison | — |
+| Venusaur | Grass / Poison | — |
+| Victreebel | Grass / Poison | — |
+| Vileplume | Grass / Poison | — |
+| Voltorb | Electric | — |
+| Vulpix | Fire | — |
+| Wartortle | Water | — |
+| Weedle | Bug / Poison | — |
+| Weepinbell | Grass / Poison | — |
+| Weezing | Poison | — |
+| Wigglytuff | Normal / Fairy | — |
+| Zapdos | Electric / Flying | Legendary |
+| Zubat | Poison / Flying | — |
+
+### Generation 2
+| Pokémon/Form | Type(s) | Tags |
+|---|---|---|
+| Aipom | Normal | — |
+| Ampharos | Electric | — |
+| Ariados | Bug / Poison | — |
+| Azumarill | Water / Fairy | — |
+| Bayleef | Grass | — |
+| Bellossom | Grass | — |
+| Blissey | Normal | — |
+| Celebi | Psychic / Grass | Mythical |
+| Chikorita | Grass | Starter |
+| Chinchou | Water / Electric | — |
+| Cleffa | Fairy | Baby |
+| Corsola | Water / Rock | — |
+| Crobat | Poison / Flying | — |
+| Croconaw | Water | — |
+| Cyndaquil | Fire | Starter |
+| Delibird | Ice / Flying | — |
+| Donphan | Ground | — |
+| Dunsparce | Normal | — |
+| Elekid | Electric | Baby |
+| Entei | Fire | Legendary |
+| Espeon | Psychic | — |
+| Feraligatr | Water | — |
+| Flaaffy | Electric | — |
+| Forretress | Bug / Steel | — |
+| Furret | Normal | — |
+| Girafarig | Normal / Psychic | — |
+| Gligar | Ground / Flying | — |
+| Granbull | Fairy | — |
+| Heracross | Bug / Fighting | — |
+| Hitmontop | Fighting | — |
+| Ho Oh | Fire / Flying | Legendary |
+| Hoothoot | Normal / Flying | — |
+| Hoppip | Grass / Flying | — |
+| Houndoom | Dark / Fire | — |
+| Houndour | Dark / Fire | — |
+| Igglybuff | Normal / Fairy | Baby |
+| Jumpluff | Grass / Flying | — |
+| Kingdra | Water / Dragon | — |
+| Lanturn | Water / Electric | — |
+| Larvitar | Rock / Ground | — |
+| Ledian | Bug / Flying | — |
+| Ledyba | Bug / Flying | — |
+| Lugia | Psychic / Flying | Legendary |
+| Magby | Fire | Baby |
+| Magcargo | Fire / Rock | — |
+| Mantine | Water / Flying | — |
+| Mareep | Electric | — |
+| Marill | Water / Fairy | — |
+| Meganium | Grass | — |
+| Miltank | Normal | — |
+| Misdreavus | Ghost | — |
+| Murkrow | Dark / Flying | — |
+| Natu | Psychic / Flying | — |
+| Noctowl | Normal / Flying | — |
+| Octillery | Water | — |
+| Phanpy | Ground | — |
+| Pichu | Electric | Baby |
+| Piloswine | Ice / Ground | — |
+| Pineco | Bug | — |
+| Politoed | Water | — |
+| Porygon2 | Normal | — |
+| Pupitar | Rock / Ground | — |
+| Quagsire | Water / Ground | — |
+| Quilava | Fire | — |
+| Qwilfish | Water / Poison | — |
+| Raikou | Electric | Legendary |
+| Remoraid | Water | — |
+| Scizor | Bug / Steel | — |
+| Sentret | Normal | — |
+| Shuckle | Bug / Rock | — |
+| Skarmory | Steel / Flying | — |
+| Skiploom | Grass / Flying | — |
+| Slowking | Water / Psychic | — |
+| Slugma | Fire | — |
+| Smeargle | Normal | — |
+| Smoochum | Ice / Psychic | Baby |
+| Sneasel | Dark / Ice | — |
+| Snubbull | Fairy | — |
+| Spinarak | Bug / Poison | — |
+| Stantler | Normal | — |
+| Steelix | Steel / Ground | — |
+| Sudowoodo | Rock | — |
+| Suicune | Water | Legendary |
+| Sunflora | Grass | — |
+| Sunkern | Grass | — |
+| Swinub | Ice / Ground | — |
+| Teddiursa | Normal | — |
+| Togepi | Fairy | Baby |
+| Togetic | Fairy / Flying | — |
+| Totodile | Water | Starter |
+| Typhlosion | Fire | — |
+| Tyranitar | Rock / Dark | — |
+| Tyrogue | Fighting | Baby |
+| Umbreon | Dark | — |
+| Unown | Psychic | — |
+| Ursaring | Normal | — |
+| Wobbuffet | Psychic | — |
+| Wooper | Water / Ground | — |
+| Xatu | Psychic / Flying | — |
+| Yanma | Bug / Flying | — |
+
+### Generation 3
+| Pokémon/Form | Type(s) | Tags |
+|---|---|---|
+| Absol | Dark | — |
+| Aggron | Steel / Rock | — |
+| Altaria | Dragon / Flying | — |
+| Anorith | Rock / Bug | — |
+| Armaldo | Rock / Bug | — |
+| Aron | Steel / Rock | — |
+| Azurill | Normal / Fairy | Baby |
+| Bagon | Dragon | — |
+| Baltoy | Ground / Psychic | — |
+| Banette | Ghost | — |
+| Barboach | Water / Ground | — |
+| Beautifly | Bug / Flying | — |
+| Beldum | Steel / Psychic | — |
+| Blaziken | Fire / Fighting | — |
+| Breloom | Grass / Fighting | — |
+| Cacnea | Grass | — |
+| Cacturne | Grass / Dark | — |
+| Camerupt | Fire / Ground | — |
+| Carvanha | Water / Dark | — |
+| Cascoon | Bug | — |
+| Castform | Normal | — |
+| Chimecho | Psychic | — |
+| Clamperl | Water | — |
+| Claydol | Ground / Psychic | — |
+| Combusken | Fire / Fighting | — |
+| Corphish | Water | — |
+| Cradily | Rock / Grass | — |
+| Crawdaunt | Water / Dark | — |
+| Delcatty | Normal | — |
+| Deoxys (Normal) | Psychic | Mythical |
+| Dusclops | Ghost | — |
+| Duskull | Ghost | — |
+| Dustox | Bug / Poison | — |
+| Electrike | Electric | — |
+| Exploud | Normal | — |
+| Feebas | Water | — |
+| Flygon | Ground / Dragon | — |
+| Gardevoir | Psychic / Fairy | — |
+| Glalie | Ice | — |
+| Gorebyss | Water | — |
+| Groudon | Ground | Legendary |
+| Grovyle | Grass | — |
+| Grumpig | Psychic | — |
+| Gulpin | Poison | — |
+| Hariyama | Fighting | — |
+| Huntail | Water | — |
+| Illumise | Bug | — |
+| Jirachi | Steel / Psychic | Mythical |
+| Kecleon | Normal | — |
+| Kirlia | Psychic / Fairy | — |
+| Kyogre | Water | Legendary |
+| Lairon | Steel / Rock | — |
+| Latias | Dragon / Psychic | Legendary |
+| Latios | Dragon / Psychic | Legendary |
+| Lileep | Rock / Grass | — |
+| Linoone | Normal | — |
+| Lombre | Water / Grass | — |
+| Lotad | Water / Grass | — |
+| Loudred | Normal | — |
+| Ludicolo | Water / Grass | — |
+| Lunatone | Rock / Psychic | — |
+| Luvdisc | Water | — |
+| Makuhita | Fighting | — |
+| Manectric | Electric | — |
+| Marshtomp | Water / Ground | — |
+| Masquerain | Bug / Flying | — |
+| Mawile | Steel / Fairy | — |
+| Medicham | Fighting / Psychic | — |
+| Meditite | Fighting / Psychic | — |
+| Metagross | Steel / Psychic | — |
+| Metang | Steel / Psychic | — |
+| Mightyena | Dark | — |
+| Milotic | Water | — |
+| Minun | Electric | — |
+| Mudkip | Water | Starter |
+| Nincada | Bug / Ground | — |
+| Ninjask | Bug / Flying | — |
+| Nosepass | Rock | — |
+| Numel | Fire / Ground | — |
+| Nuzleaf | Grass / Dark | — |
+| Pelipper | Water / Flying | — |
+| Plusle | Electric | — |
+| Poochyena | Dark | — |
+| Ralts | Psychic / Fairy | — |
+| Rayquaza | Dragon / Flying | Legendary |
+| Regice | Ice | Legendary |
+| Regirock | Rock | Legendary |
+| Registeel | Steel | Legendary |
+| Relicanth | Water / Rock | — |
+| Roselia | Grass / Poison | — |
+| Sableye | Dark / Ghost | — |
+| Salamence | Dragon / Flying | — |
+| Sceptile | Grass | — |
+| Sealeo | Ice / Water | — |
+| Seedot | Grass | — |
+| Seviper | Poison | — |
+| Sharpedo | Water / Dark | — |
+| Shedinja | Bug / Ghost | — |
+| Shelgon | Dragon | — |
+| Shiftry | Grass / Dark | — |
+| Shroomish | Grass | — |
+| Shuppet | Ghost | — |
+| Silcoon | Bug | — |
+| Skitty | Normal | — |
+| Slaking | Normal | — |
+| Slakoth | Normal | — |
+| Snorunt | Ice | — |
+| Solrock | Rock / Psychic | — |
+| Spheal | Ice / Water | — |
+| Spinda | Normal | — |
+| Spoink | Psychic | — |
+| Surskit | Bug / Water | — |
+| Swablu | Normal / Flying | — |
+| Swalot | Poison | — |
+| Swampert | Water / Ground | — |
+| Swellow | Normal / Flying | — |
+| Taillow | Normal / Flying | — |
+| Torchic | Fire | Starter |
+| Torkoal | Fire | — |
+| Trapinch | Ground | — |
+| Treecko | Grass | Starter |
+| Tropius | Grass / Flying | — |
+| Vibrava | Ground / Dragon | — |
+| Vigoroth | Normal | — |
+| Volbeat | Bug | — |
+| Wailmer | Water | — |
+| Wailord | Water | — |
+| Walrein | Ice / Water | — |
+| Whiscash | Water / Ground | — |
+| Whismur | Normal | — |
+| Wingull | Water / Flying | — |
+| Wurmple | Bug | — |
+| Wynaut | Psychic | Baby |
+| Zangoose | Normal | — |
+| Zigzagoon | Normal | — |
+
+### Generation 4
+| Pokémon/Form | Type(s) | Tags |
+|---|---|---|
+| Abomasnow | Grass / Ice | — |
+| Ambipom | Normal | — |
+| Arceus | Normal | Mythical |
+| Azelf | Psychic | Legendary |
+| Bastiodon | Rock / Steel | — |
+| Bibarel | Normal / Water | — |
+| Bidoof | Normal | — |
+| Bonsly | Rock | Baby |
+| Bronzong | Steel / Psychic | — |
+| Bronzor | Steel / Psychic | — |
+| Budew | Grass / Poison | Baby |
+| Buizel | Water | — |
+| Buneary | Normal | — |
+| Burmy | Bug | — |
+| Carnivine | Grass | — |
+| Chatot | Normal / Flying | — |
+| Cherrim | Grass | — |
+| Cherubi | Grass | — |
+| Chimchar | Fire | Starter |
+| Chingling | Psychic | Baby |
+| Combee | Bug / Flying | — |
+| Cranidos | Rock | — |
+| Cresselia | Psychic | Legendary |
+| Croagunk | Poison / Fighting | — |
+| Darkrai | Dark | Mythical |
+| Dialga | Steel / Dragon | Legendary |
+| Drapion | Poison / Dark | — |
+| Drifblim | Ghost / Flying | — |
+| Drifloon | Ghost / Flying | — |
+| Dusknoir | Ghost | — |
+| Electivire | Electric | — |
+| Empoleon | Water / Steel | — |
+| Finneon | Water | — |
+| Floatzel | Water | — |
+| Froslass | Ice / Ghost | — |
+| Gabite | Dragon / Ground | — |
+| Gallade | Psychic / Fighting | — |
+| Garchomp | Dragon / Ground | — |
+| Gastrodon | Water / Ground | — |
+| Gible | Dragon / Ground | — |
+| Giratina (Altered) | Ghost / Dragon | Legendary |
+| Glaceon | Ice | — |
+| Glameow | Normal | — |
+| Gliscor | Ground / Flying | — |
+| Grotle | Grass | — |
+| Happiny | Normal | Baby |
+| Heatran | Fire / Steel | Legendary |
+| Hippopotas | Ground | — |
+| Hippowdon | Ground | — |
+| Honchkrow | Dark / Flying | — |
+| Infernape | Fire / Fighting | — |
+| Kricketot | Bug | — |
+| Kricketune | Bug | — |
+| Leafeon | Grass | — |
+| Lickilicky | Normal | — |
+| Lopunny | Normal | — |
+| Lucario | Fighting / Steel | — |
+| Lumineon | Water | — |
+| Luxio | Electric | — |
+| Luxray | Electric | — |
+| Magmortar | Fire | — |
+| Magnezone | Electric / Steel | — |
+| Mamoswine | Ice / Ground | — |
+| Manaphy | Water | Mythical |
+| Mantyke | Water / Flying | Baby |
+| Mesprit | Psychic | Legendary |
+| Mime Jr | Psychic / Fairy | Baby |
+| Mismagius | Ghost | — |
+| Monferno | Fire / Fighting | — |
+| Mothim | Bug / Flying | — |
+| Munchlax | Normal | Baby |
+| Pachirisu | Electric | — |
+| Palkia | Water / Dragon | Legendary |
+| Phione | Water | Mythical |
+| Piplup | Water | Starter |
+| Porygon Z | Normal | — |
+| Prinplup | Water | — |
+| Probopass | Rock / Steel | — |
+| Purugly | Normal | — |
+| Rampardos | Rock | — |
+| Regigigas | Normal | Legendary |
+| Rhyperior | Ground / Rock | — |
+| Riolu | Fighting | Baby |
+| Roserade | Grass / Poison | — |
+| Rotom | Electric / Ghost | — |
+| Shaymin (Land) | Grass | Mythical |
+| Shellos | Water | — |
+| Shieldon | Rock / Steel | — |
+| Shinx | Electric | — |
+| Skorupi | Poison / Bug | — |
+| Skuntank | Poison / Dark | — |
+| Snover | Grass / Ice | — |
+| Spiritomb | Ghost / Dark | — |
+| Staraptor | Normal / Flying | — |
+| Staravia | Normal / Flying | — |
+| Starly | Normal / Flying | — |
+| Stunky | Poison / Dark | — |
+| Tangrowth | Grass | — |
+| Togekiss | Fairy / Flying | — |
+| Torterra | Grass / Ground | — |
+| Toxicroak | Poison / Fighting | — |
+| Turtwig | Grass | Starter |
+| Uxie | Psychic | Legendary |
+| Vespiquen | Bug / Flying | — |
+| Weavile | Dark / Ice | — |
+| Wormadam (Plant) | Bug / Grass | — |
+| Yanmega | Bug / Flying | — |
+
+### Generation 5
+| Pokémon/Form | Type(s) | Tags |
+|---|---|---|
+| Accelgor | Bug | — |
+| Alomomola | Water | — |
+| Amoonguss | Grass / Poison | — |
+| Archen | Rock / Flying | — |
+| Archeops | Rock / Flying | — |
+| Audino | Normal | — |
+| Axew | Dragon | — |
+| Basculin (Red Striped) | Water | — |
+| Beartic | Ice | — |
+| Beheeyem | Psychic | — |
+| Bisharp | Dark / Steel | — |
+| Blitzle | Electric | — |
+| Boldore | Rock | — |
+| Bouffalant | Normal | — |
+| Braviary | Normal / Flying | — |
+| Carracosta | Water / Rock | — |
+| Chandelure | Ghost / Fire | — |
+| Cinccino | Normal | — |
+| Cobalion | Steel / Fighting | Legendary |
+| Cofagrigus | Ghost | — |
+| Conkeldurr | Fighting | — |
+| Cottonee | Grass / Fairy | — |
+| Crustle | Bug / Rock | — |
+| Cryogonal | Ice | — |
+| Cubchoo | Ice | — |
+| Darmanitan (Standard) | Fire | — |
+| Darumaka | Fire | — |
+| Deerling | Normal / Grass | — |
+| Deino | Dark / Dragon | — |
+| Dewott | Water | — |
+| Drilbur | Ground | — |
+| Druddigon | Dragon | — |
+| Ducklett | Water / Flying | — |
+| Duosion | Psychic | — |
+| Durant | Bug / Steel | — |
+| Dwebble | Bug / Rock | — |
+| Eelektrik | Electric | — |
+| Eelektross | Electric | — |
+| Elgyem | Psychic | — |
+| Emboar | Fire / Fighting | — |
+| Emolga | Electric / Flying | — |
+| Escavalier | Bug / Steel | — |
+| Excadrill | Ground / Steel | — |
+| Ferroseed | Grass / Steel | — |
+| Ferrothorn | Grass / Steel | — |
+| Foongus | Grass / Poison | — |
+| Fraxure | Dragon | — |
+| Frillish (Male) | Water / Ghost | — |
+| Galvantula | Bug / Electric | — |
+| Garbodor | Poison | — |
+| Genesect | Bug / Steel | Mythical |
+| Gigalith | Rock | — |
+| Golett | Ground / Ghost | — |
+| Golurk | Ground / Ghost | — |
+| Gothita | Psychic | — |
+| Gothitelle | Psychic | — |
+| Gothorita | Psychic | — |
+| Gurdurr | Fighting | — |
+| Haxorus | Dragon | — |
+| Heatmor | Fire | — |
+| Herdier | Normal | — |
+| Hydreigon | Dark / Dragon | — |
+| Jellicent (Male) | Water / Ghost | — |
+| Joltik | Bug / Electric | — |
+| Karrablast | Bug | — |
+| Keldeo (Ordinary) | Water / Fighting | Mythical |
+| Klang | Steel | — |
+| Klink | Steel | — |
+| Klinklang | Steel | — |
+| Krokorok | Ground / Dark | — |
+| Krookodile | Ground / Dark | — |
+| Kyurem | Dragon / Ice | Legendary |
+| Lampent | Ghost / Fire | — |
+| Landorus (Incarnate) | Ground / Flying | Legendary |
+| Larvesta | Bug / Fire | — |
+| Leavanny | Bug / Grass | — |
+| Liepard | Dark | — |
+| Lilligant | Grass | — |
+| Lillipup | Normal | — |
+| Litwick | Ghost / Fire | — |
+| Mandibuzz | Dark / Flying | — |
+| Maractus | Grass | — |
+| Meloetta (Aria) | Normal / Psychic | Mythical |
+| Mienfoo | Fighting | — |
+| Mienshao | Fighting | — |
+| Minccino | Normal | — |
+| Munna | Psychic | — |
+| Musharna | Psychic | — |
+| Oshawott | Water | Starter |
+| Palpitoad | Water / Ground | — |
+| Panpour | Water | — |
+| Pansage | Grass | — |
+| Pansear | Fire | — |
+| Patrat | Normal | — |
+| Pawniard | Dark / Steel | — |
+| Petilil | Grass | — |
+| Pidove | Normal / Flying | — |
+| Pignite | Fire / Fighting | — |
+| Purrloin | Dark | — |
+| Reshiram | Dragon / Fire | Legendary |
+| Reuniclus | Psychic | — |
+| Roggenrola | Rock | — |
+| Rufflet | Normal / Flying | — |
+| Samurott | Water | — |
+| Sandile | Ground / Dark | — |
+| Sawk | Fighting | — |
+| Sawsbuck | Normal / Grass | — |
+| Scolipede | Bug / Poison | — |
+| Scrafty | Dark / Fighting | — |
+| Scraggy | Dark / Fighting | — |
+| Seismitoad | Water / Ground | — |
+| Serperior | Grass | — |
+| Servine | Grass | — |
+| Sewaddle | Bug / Grass | — |
+| Shelmet | Bug | — |
+| Sigilyph | Psychic / Flying | — |
+| Simipour | Water | — |
+| Simisage | Grass | — |
+| Simisear | Fire | — |
+| Snivy | Grass | Starter |
+| Solosis | Psychic | — |
+| Stoutland | Normal | — |
+| Stunfisk | Ground / Electric | — |
+| Swadloon | Bug / Grass | — |
+| Swanna | Water / Flying | — |
+| Swoobat | Psychic / Flying | — |
+| Tepig | Fire | Starter |
+| Terrakion | Rock / Fighting | Legendary |
+| Throh | Fighting | — |
+| Thundurus (Incarnate) | Electric / Flying | Legendary |
+| Timburr | Fighting | — |
+| Tirtouga | Water / Rock | — |
+| Tornadus (Incarnate) | Flying | Legendary |
+| Tranquill | Normal / Flying | — |
+| Trubbish | Poison | — |
+| Tympole | Water | — |
+| Tynamo | Electric | — |
+| Unfezant | Normal / Flying | — |
+| Vanillish | Ice | — |
+| Vanillite | Ice | — |
+| Vanilluxe | Ice | — |
+| Venipede | Bug / Poison | — |
+| Victini | Psychic / Fire | Mythical |
+| Virizion | Grass / Fighting | Legendary |
+| Volcarona | Bug / Fire | — |
+| Vullaby | Dark / Flying | — |
+| Watchog | Normal | — |
+| Whimsicott | Grass / Fairy | — |
+| Whirlipede | Bug / Poison | — |
+| Woobat | Psychic / Flying | — |
+| Yamask | Ghost | — |
+| Zebstrika | Electric | — |
+| Zekrom | Dragon / Electric | Legendary |
+| Zoroark | Dark | — |
+| Zorua | Dark | — |
+| Zweilous | Dark / Dragon | — |
+
+### Generation 6
+| Pokémon/Form | Type(s) | Tags |
+|---|---|---|
+| Mega Abomasnow | Grass / Ice | Mega/Primal, No Dynamax |
+| Mega Absol | Dark | Mega/Primal, No Dynamax |
+| Mega Absol Z | Dark / Ghost | Mega/Primal, No Dynamax |
+| Aegislash (Shield) | Steel / Ghost | — |
+| Mega Aerodactyl | Rock / Flying | Mega/Primal, No Dynamax |
+| Mega Aggron | Steel | Mega/Primal, No Dynamax |
+| Mega Alakazam | Psychic | Mega/Primal, No Dynamax |
+| Mega Altaria | Dragon / Fairy | Mega/Primal, No Dynamax |
+| Amaura | Rock / Ice | — |
+| Mega Ampharos | Electric / Dragon | Mega/Primal, No Dynamax |
+| Aromatisse | Fairy | — |
+| Mega Audino | Normal / Fairy | Mega/Primal, No Dynamax |
+| Aurorus | Rock / Ice | — |
+| Avalugg | Ice | — |
+| Mega Banette | Ghost | Mega/Primal, No Dynamax |
+| Barbaracle | Rock / Water | — |
+| Mega Barbaracle | Rock / Fighting | Mega/Primal, No Dynamax |
+| Mega Baxcalibur | Dragon / Ice | Mega/Primal, No Dynamax |
+| Mega Beedrill | Bug / Poison | Mega/Primal, No Dynamax |
+| Bergmite | Ice | — |
+| Binacle | Rock / Water | — |
+| Mega Blastoise | Water | Mega/Primal, No Dynamax |
+| Mega Blaziken | Fire / Fighting | Mega/Primal, No Dynamax |
+| Braixen | Fire | — |
+| Bunnelby | Normal | — |
+| Mega Camerupt | Fire / Ground | Mega/Primal, No Dynamax |
+| Carbink | Rock / Fairy | — |
+| Mega Chandelure | Ghost / Fire | Mega/Primal, No Dynamax |
+| Mega Charizard X | Fire / Dragon | Mega/Primal, No Dynamax |
+| Mega Charizard Y | Fire / Flying | Mega/Primal, No Dynamax |
+| Chesnaught | Grass / Fighting | — |
+| Mega Chesnaught | Grass / Fighting | Mega/Primal, No Dynamax |
+| Chespin | Grass | Starter |
+| Mega Chimecho | Psychic / Steel | Mega/Primal, No Dynamax |
+| Clauncher | Water | — |
+| Clawitzer | Water | — |
+| Mega Clefable | Fairy / Flying | Mega/Primal, No Dynamax |
+| Mega Crabominable | Fighting / Ice | Mega/Primal, No Dynamax |
+| Mega Darkrai | Dark | Mythical, Mega/Primal, No Dynamax |
+| Dedenne | Electric / Fairy | — |
+| Delphox | Fire / Psychic | — |
+| Mega Delphox | Fire / Psychic | Mega/Primal, No Dynamax |
+| Diancie | Rock / Fairy | Mythical |
+| Mega Diancie | Rock / Fairy | Mythical, Mega/Primal, No Dynamax |
+| Diggersby | Normal / Ground | — |
+| Doublade | Steel / Ghost | — |
+| Dragalge | Poison / Dragon | — |
+| Mega Dragalge | Poison / Dragon | Mega/Primal, No Dynamax |
+| Mega Dragonite | Dragon / Flying | Mega/Primal, No Dynamax |
+| Mega Drampa | Normal / Dragon | Mega/Primal, No Dynamax |
+| Mega Eelektross | Electric | Mega/Primal, No Dynamax |
+| Mega Emboar | Fire / Fighting | Mega/Primal, No Dynamax |
+| Espurr | Psychic | — |
+| Mega Excadrill | Ground / Steel | Mega/Primal, No Dynamax |
+| Mega Falinks | Fighting | Mega/Primal, No Dynamax |
+| Fennekin | Fire | Starter |
+| Mega Feraligatr | Water / Dragon | Mega/Primal, No Dynamax |
+| Flabebe | Fairy | — |
+| Fletchinder | Fire / Flying | — |
+| Fletchling | Normal / Flying | — |
+| Floette | Fairy | — |
+| Mega Floette | Fairy | Mega/Primal, No Dynamax |
+| Florges | Fairy | — |
+| Froakie | Water | Starter |
+| Frogadier | Water | — |
+| Mega Froslass | Ice / Ghost | Mega/Primal, No Dynamax |
+| Furfrou | Normal | — |
+| Mega Gallade | Psychic / Fighting | Mega/Primal, No Dynamax |
+| Mega Garchomp | Dragon / Ground | Mega/Primal, No Dynamax |
+| Mega Garchomp Z | Dragon | Mega/Primal, No Dynamax |
+| Mega Gardevoir | Psychic / Fairy | Mega/Primal, No Dynamax |
+| Mega Gengar | Ghost / Poison | Mega/Primal, No Dynamax |
+| Mega Glalie | Ice | Mega/Primal, No Dynamax |
+| Mega Glimmora | Rock / Poison | Mega/Primal, No Dynamax |
+| Gogoat | Grass | — |
+| Mega Golisopod | Bug / Steel | Mega/Primal, No Dynamax |
+| Mega Golurk | Ground / Ghost | Mega/Primal, No Dynamax |
+| Goodra | Dragon | — |
+| Goomy | Dragon | — |
+| Gourgeist (Average) | Ghost / Grass | — |
+| Greninja | Water / Dark | — |
+| Mega Greninja | Water / Dark | Mega/Primal, No Dynamax |
+| Groudon (Primal) | Ground / Fire | Legendary, Mega/Primal, No Dynamax |
+| Mega Gyarados | Water / Dark | Mega/Primal, No Dynamax |
+| Hawlucha | Fighting / Flying | — |
+| Mega Hawlucha | Fighting / Flying | Mega/Primal, No Dynamax |
+| Mega Heatran | Fire / Steel | Legendary, Mega/Primal, No Dynamax |
+| Heliolisk | Electric / Normal | — |
+| Helioptile | Electric / Normal | — |
+| Mega Heracross | Bug / Fighting | Mega/Primal, No Dynamax |
+| Honedge | Steel / Ghost | — |
+| Hoopa | Psychic / Ghost | Mythical |
+| Mega Houndoom | Dark / Fire | Mega/Primal, No Dynamax |
+| Inkay | Dark / Psychic | — |
+| Mega Kangaskhan | Normal | Mega/Primal, No Dynamax |
+| Klefki | Steel / Fairy | — |
+| Kyogre (Primal) | Water | Legendary, Mega/Primal, No Dynamax |
+| Mega Latias | Dragon / Psychic | Legendary, Mega/Primal, No Dynamax |
+| Mega Latios | Dragon / Psychic | Legendary, Mega/Primal, No Dynamax |
+| Litleo | Fire / Normal | — |
+| Mega Lopunny | Normal / Fighting | Mega/Primal, No Dynamax |
+| Mega Lucario | Fighting / Steel | Mega/Primal, No Dynamax |
+| Mega Lucario Z | Fighting / Steel | Mega/Primal, No Dynamax |
+| Mega Magearna | Steel / Fairy | Mythical, Mega/Primal, No Dynamax |
+| Mega Magearna | Steel / Fairy | Mythical, Mega/Primal, No Dynamax |
+| Malamar | Dark / Psychic | — |
+| Mega Malamar | Dark / Psychic | Mega/Primal, No Dynamax |
+| Mega Manectric | Electric | Mega/Primal, No Dynamax |
+| Mega Mawile | Steel / Fairy | Mega/Primal, No Dynamax |
+| Mega Medicham | Fighting / Psychic | Mega/Primal, No Dynamax |
+| Mega Meganium | Grass / Fairy | Mega/Primal, No Dynamax |
+| Mega Meowstic | Psychic | Mega/Primal, No Dynamax |
+| Meowstic (Male) | Psychic | — |
+| Mega Meowstic | Psychic | Mega/Primal, No Dynamax |
+| Mega Metagross | Steel / Psychic | Mega/Primal, No Dynamax |
+| Mega Mewtwo X | Psychic / Fighting | Legendary, Mega/Primal, No Dynamax |
+| Mega Mewtwo Y | Psychic | Legendary, Mega/Primal, No Dynamax |
+| Noibat | Flying / Dragon | — |
+| Noivern | Flying / Dragon | — |
+| Pancham | Fighting | — |
+| Pangoro | Fighting / Dark | — |
+| Phantump | Ghost / Grass | — |
+| Mega Pidgeot | Normal / Flying | Mega/Primal, No Dynamax |
+| Mega Pinsir | Bug / Flying | Mega/Primal, No Dynamax |
+| Pumpkaboo (Average) | Ghost / Grass | — |
+| Pyroar (Male) | Fire / Normal | — |
+| Mega Pyroar | Fire / Normal | Mega/Primal, No Dynamax |
+| Quilladin | Grass | — |
+| Mega Raichu X | Electric | Mega/Primal, No Dynamax |
+| Mega Raichu Y | Electric | Mega/Primal, No Dynamax |
+| Mega Rayquaza | Dragon / Flying | Legendary, Mega/Primal, No Dynamax |
+| Mega Sableye | Dark / Ghost | Mega/Primal, No Dynamax |
+| Mega Salamence | Dragon / Flying | Mega/Primal, No Dynamax |
+| Scatterbug | Bug | — |
+| Mega Sceptile | Grass / Dragon | Mega/Primal, No Dynamax |
+| Mega Scizor | Bug / Steel | Mega/Primal, No Dynamax |
+| Mega Scolipede | Bug / Poison | Mega/Primal, No Dynamax |
+| Mega Scovillain | Grass / Fire | Mega/Primal, No Dynamax |
+| Mega Scrafty | Dark / Fighting | Mega/Primal, No Dynamax |
+| Mega Sharpedo | Water / Dark | Mega/Primal, No Dynamax |
+| Mega Skarmory | Steel / Flying | Mega/Primal, No Dynamax |
+| Skiddo | Grass | — |
+| Skrelp | Poison / Water | — |
+| Sliggoo | Dragon | — |
+| Mega Slowbro | Water / Psychic | Mega/Primal, No Dynamax |
+| Slurpuff | Fairy | — |
+| Spewpa | Bug | — |
+| Spritzee | Fairy | — |
+| Mega Staraptor | Fighting / Flying | Mega/Primal, No Dynamax |
+| Mega Starmie | Water / Psychic | Mega/Primal, No Dynamax |
+| Mega Steelix | Steel / Ground | Mega/Primal, No Dynamax |
+| Mega Swampert | Water / Ground | Mega/Primal, No Dynamax |
+| Swirlix | Fairy | — |
+| Sylveon | Fairy | — |
+| Talonflame | Fire / Flying | — |
+| Mega Tatsugiri | Dragon / Water | Mega/Primal, No Dynamax |
+| Mega Tatsugiri | Dragon / Water | Mega/Primal, No Dynamax |
+| Mega Tatsugiri | Dragon / Water | Mega/Primal, No Dynamax |
+| Trevenant | Ghost / Grass | — |
+| Mega Tyranitar | Rock / Dark | Mega/Primal, No Dynamax |
+| Tyrantrum | Rock / Dragon | — |
+| Tyrunt | Rock / Dragon | — |
+| Mega Venusaur | Grass / Poison | Mega/Primal, No Dynamax |
+| Mega Victreebel | Grass / Poison | Mega/Primal, No Dynamax |
+| Vivillon | Bug / Flying | — |
+| Volcanion | Fire / Water | Mythical |
+| Xerneas | Fairy | Legendary |
+| Yveltal | Dark / Flying | Legendary |
+| Mega Zeraora | Electric | Mythical, Mega/Primal, No Dynamax |
+| Zygarde (50) | Dragon / Ground | Legendary |
+| Mega Zygarde | Dragon / Ground | Legendary, Mega/Primal, No Dynamax |
+
+### Generation 7
+| Pokémon/Form | Type(s) | Tags |
+|---|---|---|
+| Araquanid | Water / Bug | — |
+| Bewear | Normal / Fighting | — |
+| Blacephalon | Fire / Ghost | — |
+| Bounsweet | Grass | — |
+| Brionne | Water | — |
+| Bruxish | Water / Psychic | — |
+| Buzzwole | Bug / Fighting | — |
+| Celesteela | Steel / Flying | — |
+| Charjabug | Bug / Electric | — |
+| Comfey | Fairy | — |
+| Cosmoem | Psychic | Legendary |
+| Cosmog | Psychic | Legendary |
+| Crabominable | Fighting / Ice | — |
+| Crabrawler | Fighting | — |
+| Cutiefly | Bug / Fairy | — |
+| Dartrix | Grass / Flying | — |
+| Decidueye | Grass / Ghost | — |
+| Dewpider | Water / Bug | — |
+| Dhelmise | Ghost / Grass | — |
+| Alolan Diglett | Ground / Steel | Alolan Regional |
+| Drampa | Normal / Dragon | — |
+| Alolan Dugtrio | Ground / Steel | Alolan Regional |
+| Alolan Exeggutor | Grass / Dragon | Alolan Regional |
+| Fomantis | Grass | — |
+| Alolan Geodude | Rock / Electric | Alolan Regional |
+| Alolan Golem | Rock / Electric | Alolan Regional |
+| Golisopod | Bug / Water | — |
+| Alolan Graveler | Rock / Electric | Alolan Regional |
+| Alolan Grimer | Poison / Dark | Alolan Regional |
+| Grubbin | Bug | — |
+| Gumshoos | Normal | — |
+| Guzzlord | Dark / Dragon | — |
+| Hakamo-o | Dragon / Fighting | — |
+| Incineroar | Fire / Dark | — |
+| Jangmo-o | Dragon | — |
+| Kartana | Grass / Steel | — |
+| Komala | Normal | — |
+| Kommo-o | Dragon / Fighting | — |
+| Litten | Fire | Starter |
+| Lunala | Psychic / Ghost | Legendary |
+| Lurantis | Grass | — |
+| Lycanroc (Midday) | Rock | — |
+| Magearna | Steel / Fairy | Mythical |
+| Mareanie | Poison / Water | — |
+| Alolan Marowak | Fire / Ghost | Alolan Regional |
+| Marshadow | Fighting / Ghost | Mythical |
+| Melmetal | Steel | Mythical |
+| Meltan | Steel | Mythical |
+| Alolan Meowth | Dark | Alolan Regional |
+| Mimikyu (Disguised) | Ghost / Fairy | — |
+| Minior (Red Meteor) | Rock / Flying | — |
+| Morelull | Grass / Fairy | — |
+| Mudbray | Ground | — |
+| Mudsdale | Ground | — |
+| Alolan Muk | Poison / Dark | Alolan Regional |
+| Naganadel | Poison / Dragon | — |
+| Necrozma | Psychic | Legendary |
+| Nihilego | Rock / Poison | — |
+| Alolan Ninetales | Ice / Fairy | Alolan Regional |
+| Oranguru | Normal / Psychic | — |
+| Oricorio (Baile) | Fire / Flying | — |
+| Palossand | Ghost / Ground | — |
+| Passimian | Fighting | — |
+| Alolan Persian | Dark | Alolan Regional |
+| Pheromosa | Bug / Fighting | — |
+| Alolan Pikachu Cap | Electric | Alolan Regional |
+| Pikipek | Normal / Flying | — |
+| Poipole | Poison | — |
+| Popplio | Water | Starter |
+| Primarina | Water / Fairy | — |
+| Pyukumuku | Water | — |
+| Alolan Raichu | Electric / Psychic | Alolan Regional |
+| Alolan Raticate | Dark / Normal | Alolan Regional |
+| Alolan Raticate Totem | Dark / Normal | Alolan Regional |
+| Alolan Rattata | Dark / Normal | Alolan Regional |
+| Ribombee | Bug / Fairy | — |
+| Rockruff | Rock | — |
+| Rowlet | Grass / Flying | Starter |
+| Salandit | Poison / Fire | — |
+| Salazzle | Poison / Fire | — |
+| Alolan Sandshrew | Ice / Steel | Alolan Regional |
+| Alolan Sandslash | Ice / Steel | Alolan Regional |
+| Sandygast | Ghost / Ground | — |
+| Shiinotic | Grass / Fairy | — |
+| Silvally | Normal | Legendary |
+| Solgaleo | Psychic / Steel | Legendary |
+| Stakataka | Rock / Steel | — |
+| Steenee | Grass | — |
+| Stufful | Normal / Fighting | — |
+| Tapu Bulu | Grass / Fairy | Legendary |
+| Tapu Fini | Water / Fairy | Legendary |
+| Tapu Koko | Electric / Fairy | Legendary |
+| Tapu Lele | Psychic / Fairy | Legendary |
+| Togedemaru | Electric / Steel | — |
+| Torracat | Fire | — |
+| Toucannon | Normal / Flying | — |
+| Toxapex | Poison / Water | — |
+| Trumbeak | Normal / Flying | — |
+| Tsareena | Grass | — |
+| Turtonator | Fire / Dragon | — |
+| Type Null | Normal | Legendary |
+| Vikavolt | Bug / Electric | — |
+| Alolan Vulpix | Ice | Alolan Regional |
+| Wimpod | Bug / Water | — |
+| Wishiwashi (Solo) | Water | — |
+| Xurkitree | Electric | — |
+| Yungoos | Normal | — |
+| Zeraora | Electric | Mythical |
+
+### Generation 8
+| Pokémon/Form | Type(s) | Tags |
+|---|---|---|
+| Alcremie | Fairy | — |
+| Gigantamax Alcremie | Fairy | Gmax |
+| Appletun | Grass / Dragon | — |
+| Gigantamax Appletun | Grass / Dragon | Gmax |
+| Applin | Grass / Dragon | — |
+| Hisuian Arcanine | Fire / Rock | Hisuian Regional |
+| Arctovish | Water / Ice | — |
+| Arctozolt | Electric / Ice | — |
+| Arrokuda | Water | — |
+| Galarian Articuno | Psychic / Flying | Legendary, Galarian Regional |
+| Hisuian Avalugg | Ice / Rock | Hisuian Regional |
+| Barraskewda | Water | — |
+| Basculegion (Male) | Water / Ghost | — |
+| Gigantamax Blastoise | Water | Gmax |
+| Blipbug | Bug | — |
+| Boltund | Electric | — |
+| Hisuian Braviary | Psychic / Flying | Hisuian Regional |
+| Gigantamax Butterfree | Bug / Flying | Gmax |
+| Calyrex | Psychic / Grass | Legendary |
+| Carkol | Rock / Fire | — |
+| Centiskorch | Fire / Bug | — |
+| Gigantamax Centiskorch | Fire / Bug | Gmax |
+| Gigantamax Charizard | Fire / Flying | Gmax |
+| Chewtle | Water | — |
+| Cinderace | Fire | — |
+| Gigantamax Cinderace | Fire | Gmax |
+| Clobbopus | Fighting | — |
+| Coalossal | Rock / Fire | — |
+| Gigantamax Coalossal | Rock / Fire | Gmax |
+| Copperajah | Steel | — |
+| Gigantamax Copperajah | Steel | Gmax |
+| Galarian Corsola | Ghost | Galarian Regional |
+| Corviknight | Flying / Steel | — |
+| Gigantamax Corviknight | Flying / Steel | Gmax |
+| Corvisquire | Flying | — |
+| Cramorant | Flying / Water | — |
+| Cufant | Steel | — |
+| Cursola | Ghost | — |
+| Galarian Darmanitan Standard | Ice | Galarian Regional |
+| Galarian Darmanitan Zen | Ice / Fire | Galarian Regional |
+| Galarian Darumaka | Ice | Galarian Regional |
+| Hisuian Decidueye | Grass / Fighting | Hisuian Regional |
+| Dottler | Bug / Psychic | — |
+| Dracovish | Water / Dragon | — |
+| Dracozolt | Electric / Dragon | — |
+| Dragapult | Dragon / Ghost | — |
+| Drakloak | Dragon / Ghost | — |
+| Drednaw | Water / Rock | — |
+| Gigantamax Drednaw | Water / Rock | Gmax |
+| Dreepy | Dragon / Ghost | — |
+| Drizzile | Water | — |
+| Dubwool | Normal | — |
+| Duraludon | Steel / Dragon | — |
+| Gigantamax Duraludon | Steel / Dragon | Gmax |
+| Gigantamax Eevee | Normal | Gmax |
+| Eiscue (Ice) | Ice | — |
+| Eldegoss | Grass | — |
+| Hisuian Electrode | Electric / Grass | Hisuian Regional |
+| Enamorus (Incarnate) | Fairy / Flying | Legendary |
+| Eternatus | Poison / Dragon | Legendary, No Dynamax |
+| Falinks | Fighting | — |
+| Galarian Farfetchd | Fighting | Galarian Regional |
+| Flapple | Grass / Dragon | — |
+| Gigantamax Flapple | Grass / Dragon | Gmax |
+| Frosmoth | Ice / Bug | — |
+| Gigantamax Garbodor | Poison | Gmax |
+| Gigantamax Gengar | Ghost / Poison | Gmax |
+| Glastrier | Ice | Legendary |
+| Hisuian Goodra | Steel / Dragon | Hisuian Regional |
+| Gossifleur | Grass | — |
+| Grapploct | Fighting | — |
+| Greedent | Normal | — |
+| Grimmsnarl | Dark / Fairy | — |
+| Gigantamax Grimmsnarl | Dark / Fairy | Gmax |
+| Grookey | Grass | Starter |
+| Hisuian Growlithe | Fire / Rock | Hisuian Regional |
+| Hatenna | Psychic | — |
+| Hatterene | Psychic / Fairy | — |
+| Gigantamax Hatterene | Psychic / Fairy | Gmax |
+| Hattrem | Psychic | — |
+| Impidimp | Dark / Fairy | — |
+| Indeedee (Male) | Psychic / Normal | — |
+| Inteleon | Water | — |
+| Gigantamax Inteleon | Water | Gmax |
+| Gigantamax Kingler | Water | Gmax |
+| Kleavor | Bug / Rock | — |
+| Kubfu | Fighting | Legendary |
+| Gigantamax Lapras | Water / Ice | Gmax |
+| Hisuian Lilligant | Grass / Fighting | Hisuian Regional |
+| Galarian Linoone | Dark / Normal | Galarian Regional |
+| Gigantamax Machamp | Fighting | Gmax |
+| Gigantamax Melmetal | Steel | Mythical, Gmax |
+| Galarian Meowth | Steel | Galarian Regional |
+| Gigantamax Meowth | Normal | Gmax |
+| Milcery | Fairy | — |
+| Galarian Moltres | Dark / Flying | Legendary, Galarian Regional |
+| Morgrem | Dark / Fairy | — |
+| Morpeko (Full Belly) | Electric / Dark | — |
+| Galarian Mr Mime | Ice / Psychic | Galarian Regional |
+| Mr Rime | Ice / Psychic | — |
+| Nickit | Dark | — |
+| Obstagoon | Dark / Normal | — |
+| Orbeetle | Bug / Psychic | — |
+| Gigantamax Orbeetle | Bug / Psychic | Gmax |
+| Overqwil | Dark / Poison | — |
+| Perrserker | Steel | — |
+| Gigantamax Pikachu | Electric | Gmax |
+| Pincurchin | Electric | — |
+| Polteageist | Ghost | — |
+| Galarian Ponyta | Psychic | Galarian Regional |
+| Hisuian Qwilfish | Dark / Poison | Hisuian Regional |
+| Raboot | Fire | — |
+| Galarian Rapidash | Psychic / Fairy | Galarian Regional |
+| Regidrago | Dragon | Legendary |
+| Regieleki | Electric | Legendary |
+| Rillaboom | Grass | — |
+| Gigantamax Rillaboom | Grass | Gmax |
+| Rolycoly | Rock | — |
+| Rookidee | Flying | — |
+| Runerigus | Ground / Ghost | — |
+| Hisuian Samurott | Water / Dark | Hisuian Regional |
+| Sandaconda | Ground | — |
+| Gigantamax Sandaconda | Ground | Gmax |
+| Scorbunny | Fire | Starter |
+| Silicobra | Ground | — |
+| Sinistea | Ghost | — |
+| Sirfetchd | Fighting | — |
+| Sizzlipede | Fire / Bug | — |
+| Skwovet | Normal | — |
+| Hisuian Sliggoo | Steel / Dragon | Hisuian Regional |
+| Galarian Slowbro | Poison / Psychic | Galarian Regional |
+| Galarian Slowking | Poison / Psychic | Galarian Regional |
+| Galarian Slowpoke | Psychic | Galarian Regional |
+| Hisuian Sneasel | Fighting / Poison | Hisuian Regional |
+| Sneasler | Fighting / Poison | — |
+| Snom | Ice / Bug | — |
+| Gigantamax Snorlax | Normal | Gmax |
+| Sobble | Water | Starter |
+| Spectrier | Ghost | Legendary |
+| Stonjourner | Rock | — |
+| Galarian Stunfisk | Ground / Steel | Galarian Regional |
+| Thievul | Dark | — |
+| Thwackey | Grass | — |
+| Toxel | Electric / Poison | Baby |
+| Toxtricity (Amped) | Electric / Poison | — |
+| Gigantamax Toxtricity | Electric / Poison | Gmax |
+| Gigantamax Toxtricity | Electric / Poison | Gmax |
+| Hisuian Typhlosion | Fire / Ghost | Hisuian Regional |
+| Ursaluna | Ground / Normal | — |
+| Gigantamax Urshifu | Fighting / Water | Legendary, Gmax |
+| Urshifu (Single Strike) | Fighting / Dark | Legendary |
+| Gigantamax Urshifu | Fighting / Dark | Legendary, Gmax |
+| Gigantamax Venusaur | Grass / Poison | Gmax |
+| Hisuian Voltorb | Electric / Grass | Hisuian Regional |
+| Galarian Weezing | Poison / Fairy | Galarian Regional |
+| Wooloo | Normal | — |
+| Wyrdeer | Normal / Psychic | — |
+| Galarian Yamask | Ground / Ghost | Galarian Regional |
+| Yamper | Electric | — |
+| Zacian | Fairy | Legendary, No Dynamax |
+| Zamazenta | Fighting | Legendary, No Dynamax |
+| Galarian Zapdos | Fighting / Flying | Legendary, Galarian Regional |
+| Zarude | Dark / Grass | Mythical |
+| Galarian Zigzagoon | Dark / Normal | Galarian Regional |
+| Hisuian Zoroark | Normal / Ghost | Hisuian Regional |
+| Hisuian Zorua | Normal / Ghost | Hisuian Regional |
+
+### Generation 9
+| Pokémon/Form | Type(s) | Tags |
+|---|---|---|
+| Annihilape | Fighting / Ghost | — |
+| Arboliva | Grass / Normal | — |
+| Archaludon | Steel / Dragon | — |
+| Arctibax | Dragon / Ice | — |
+| Armarouge | Fire / Psychic | — |
+| Baxcalibur | Dragon / Ice | — |
+| Bellibolt | Electric | — |
+| Bombirdier | Flying / Dark | — |
+| Brambleghast | Grass / Ghost | — |
+| Bramblin | Grass / Ghost | — |
+| Brute Bonnet | Grass / Dark | — |
+| Capsakid | Grass | — |
+| Ceruledge | Fire / Ghost | — |
+| Cetitan | Ice | — |
+| Cetoddle | Ice | — |
+| Charcadet | Fire | — |
+| Chi-Yu | Dark / Fire | Legendary |
+| Chien-Pao | Dark / Ice | Legendary |
+| Clodsire | Poison / Ground | — |
+| Crocalor | Fire | — |
+| Cyclizar | Dragon / Normal | — |
+| Dachsbun | Fairy | — |
+| Dipplin | Grass / Dragon | — |
+| Dolliv | Grass / Normal | — |
+| Dondozo | Water | — |
+| Dudunsparce (Two Segment) | Normal | — |
+| Espathra | Psychic | — |
+| Farigiraf | Normal / Psychic | — |
+| Fezandipiti | Poison / Fairy | Legendary |
+| Fidough | Fairy | — |
+| Finizen | Water | — |
+| Flamigo | Flying / Fighting | — |
+| Flittle | Psychic | — |
+| Floragato | Grass | — |
+| Flutter Mane | Ghost / Fairy | — |
+| Frigibax | Dragon / Ice | — |
+| Fuecoco | Fire | Starter |
+| Garganacl | Rock | — |
+| Gholdengo | Steel / Ghost | — |
+| Gimmighoul | Ghost | — |
+| Glimmet | Rock / Poison | — |
+| Glimmora | Rock / Poison | — |
+| Gouging Fire | Fire / Dragon | — |
+| Grafaiai | Poison / Normal | — |
+| Great Tusk | Ground / Fighting | — |
+| Greavard | Ghost | — |
+| Houndstone | Ghost | — |
+| Hydrapple | Grass / Dragon | — |
+| Iron Boulder | Rock / Psychic | — |
+| Iron Bundle | Ice / Water | — |
+| Iron Crown | Steel / Psychic | — |
+| Iron Hands | Fighting / Electric | — |
+| Iron Jugulis | Dark / Flying | — |
+| Iron Leaves | Grass / Psychic | — |
+| Iron Moth | Fire / Poison | — |
+| Iron Thorns | Rock / Electric | — |
+| Iron Treads | Ground / Steel | — |
+| Iron Valiant | Fairy / Fighting | — |
+| Kilowattrel | Electric / Flying | — |
+| Kingambit | Dark / Steel | — |
+| Klawf | Rock | — |
+| Koraidon | Fighting / Dragon | Legendary |
+| Lechonk | Normal | — |
+| Lokix | Bug / Dark | — |
+| Mabosstiff | Dark | — |
+| Maschiff | Dark | — |
+| Maushold (Family Of Four) | Normal | — |
+| Meowscarada | Grass / Dark | — |
+| Miraidon | Electric / Dragon | Legendary |
+| Munkidori | Poison / Psychic | Legendary |
+| Nacli | Rock | — |
+| Naclstack | Rock | — |
+| Nymble | Bug | — |
+| Ogerpon | Grass | Legendary |
+| Oinkologne (Male) | Normal | — |
+| Okidogi | Poison / Fighting | Legendary |
+| Orthworm | Steel | — |
+| Palafin (Zero) | Water | — |
+| Pawmi | Electric | — |
+| Pawmo | Electric / Fighting | — |
+| Pawmot | Electric / Fighting | — |
+| Pecharunt | Poison / Ghost | Mythical |
+| Poltchageist | Grass / Ghost | — |
+| Quaquaval | Water / Fighting | — |
+| Quaxly | Water | Starter |
+| Quaxwell | Water | — |
+| Rabsca | Bug / Psychic | — |
+| Raging Bolt | Electric / Dragon | — |
+| Rellor | Bug | — |
+| Revavroom | Steel / Poison | — |
+| Roaring Moon | Dragon / Dark | — |
+| Sandy Shocks | Electric / Ground | — |
+| Scovillain | Grass / Fire | — |
+| Scream Tail | Fairy / Psychic | — |
+| Shroodle | Poison / Normal | — |
+| Sinistcha | Grass / Ghost | — |
+| Skeledirge | Fire / Ghost | — |
+| Slither Wing | Bug / Fighting | — |
+| Smoliv | Grass / Normal | — |
+| Spidops | Bug | — |
+| Sprigatito | Grass | Starter |
+| Squawkabilly (Green Plumage) | Normal / Flying | — |
+| Tadbulb | Electric | — |
+| Tandemaus | Normal | — |
+| Tarountula | Bug | — |
+| Tatsugiri (Curly) | Dragon / Water | — |
+| Paldean Tauros Aqua Breed | Fighting / Water | Paldean Regional |
+| Paldean Tauros Blaze Breed | Fighting / Fire | Paldean Regional |
+| Paldean Tauros Combat Breed | Fighting | Paldean Regional |
+| Terapagos | Normal | Legendary |
+| Ting-Lu | Dark / Ground | Legendary |
+| Tinkatink | Fairy / Steel | — |
+| Tinkaton | Fairy / Steel | — |
+| Tinkatuff | Fairy / Steel | — |
+| Toedscool | Ground / Grass | — |
+| Toedscruel | Ground / Grass | — |
+| Varoom | Steel / Poison | — |
+| Veluza | Water / Psychic | — |
+| Walking Wake | Water / Dragon | — |
+| Wattrel | Electric / Flying | — |
+| Wiglett | Water | — |
+| Wo-Chien | Dark / Grass | Legendary |
+| Paldean Wooper | Poison / Ground | Paldean Regional |
+| Wugtrio | Water | — |

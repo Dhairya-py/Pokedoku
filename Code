@@ -1,0 +1,474 @@
+from __future__ import annotations
+from dataclasses import dataclass, asdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import json
+import os
+import random
+import re
+import sys
+import textwrap
+import time
+import urllib.request
+from typing import Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple
+DATA_FILE = 'pokedoku_data.json'
+POKEAPI = 'https://pokeapi.co/api/v2'
+MAX_WORKERS = 24
+TYPES = ['Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy']
+REGIONS = {'alola': 'Alolan', 'galar': 'Galarian', 'hisui': 'Hisuian', 'paldea': 'Paldean'}
+GEN_ROMAN = {'i': 1, 'ii': 2, 'iii': 3, 'iv': 4, 'v': 5, 'vi': 6, 'vii': 7, 'viii': 8, 'ix': 9}
+STARTER_SPECIES = {'bulbasaur', 'charmander', 'squirtle', 'chikorita', 'cyndaquil', 'totodile', 'treecko', 'torchic', 'mudkip', 'turtwig', 'chimchar', 'piplup', 'snivy', 'tepig', 'oshawott', 'chespin', 'fennekin', 'froakie', 'rowlet', 'litten', 'popplio', 'grookey', 'scorbunny', 'sobble', 'sprigatito', 'fuecoco', 'quaxly', 'cyndaquil', 'rowlet', 'oshawott'}
+NO_DYNAMAX_SPECIES = {'zacian', 'zamazenta', 'eternatus'}
+
+@dataclass(frozen=True)
+class Pokemon:
+    name: str
+    api_name: str
+    species: str
+    types: Tuple[str, ...]
+    gen: int
+    legendary: bool = False
+    mythical: bool = False
+    starter: bool = False
+    fully_evolved: bool = False
+    baby: bool = False
+    regional: str = ''
+    mega: bool = False
+    gigantamax: bool = False
+    dynamax: bool = True
+    form: str = ''
+
+@dataclass(frozen=True)
+class Category:
+    label: str
+    check: Callable[[Pokemon], bool]
+    kind: str
+
+@dataclass
+class Puzzle:
+    rows: Tuple[Category, Category, Category]
+    cols: Tuple[Category, Category, Category]
+    solutions: Dict[Tuple[int, int], List[Pokemon]]
+FALLBACK_POKEMON: List[Pokemon] = [Pokemon('Bulbasaur', 'bulbasaur', 'bulbasaur', ('Grass', 'Poison'), 1, starter=True), Pokemon('Charizard', 'charizard', 'charizard', ('Fire', 'Flying'), 1, fully_evolved=True, dynamax=True), Pokemon('Mega Charizard X', 'charizard-mega-x', 'charizard', ('Fire', 'Dragon'), 6, fully_evolved=True, mega=True, dynamax=False, form='mega-x'), Pokemon('Gigantamax Charizard', 'charizard-gmax', 'charizard', ('Fire', 'Flying'), 8, fully_evolved=True, gigantamax=True, dynamax=True, form='gmax'), Pokemon('Squirtle', 'squirtle', 'squirtle', ('Water',), 1, starter=True), Pokemon('Pikachu', 'pikachu', 'pikachu', ('Electric',), 1, dynamax=True), Pokemon('Alolan Raichu', 'raichu-alola', 'raichu', ('Electric', 'Psychic'), 7, fully_evolved=True, regional='Alolan'), Pokemon('Mewtwo', 'mewtwo', 'mewtwo', ('Psychic',), 1, legendary=True, fully_evolved=True), Pokemon('Treecko', 'treecko', 'treecko', ('Grass',), 3, starter=True), Pokemon('Rayquaza', 'rayquaza', 'rayquaza', ('Dragon', 'Flying'), 3, legendary=True, fully_evolved=True), Pokemon('Lucario', 'lucario', 'lucario', ('Fighting', 'Steel'), 4, fully_evolved=True), Pokemon('Greninja', 'greninja', 'greninja', ('Water', 'Dark'), 6, fully_evolved=True), Pokemon('Rowlet', 'rowlet', 'rowlet', ('Grass', 'Flying'), 7, starter=True), Pokemon('Galarian Zigzagoon', 'zigzagoon-galar', 'zigzagoon', ('Dark', 'Normal'), 8, regional='Galarian'), Pokemon('Cinderace', 'cinderace', 'cinderace', ('Fire',), 8, fully_evolved=True), Pokemon('Zacian', 'zacian', 'zacian', ('Fairy',), 8, legendary=True, fully_evolved=True, dynamax=False), Pokemon('Sprigatito', 'sprigatito', 'sprigatito', ('Grass',), 9, starter=True), Pokemon('Meowscarada', 'meowscarada', 'meowscarada', ('Grass', 'Dark'), 9, fully_evolved=True), Pokemon('Koraidon', 'koraidon', 'koraidon', ('Fighting', 'Dragon'), 9, legendary=True, fully_evolved=True)]
+POKEMON: List[Pokemon] = []
+NAME_MAP: Dict[str, Pokemon] = {}
+CATEGORIES: List[Category] = []
+
+def normalize(text: str) -> str:
+    return re.sub('[^a-z0-9]', '', text.lower())
+
+def clean_api_piece(piece: str) -> str:
+    exceptions = {'mr': 'Mr.', 'mime': 'Mime', 'ho': 'Ho', 'oh': 'Oh', 'nidoran-f': 'Nidoran F', 'nidoran-m': 'Nidoran M', 'type-null': 'Type Null', 'jangmo-o': 'Jangmo-o', 'hakamo-o': 'Hakamo-o', 'kommo-o': 'Kommo-o', 'wo-chien': 'Wo-Chien', 'chien-pao': 'Chien-Pao', 'ting-lu': 'Ting-Lu', 'chi-yu': 'Chi-Yu'}
+    return exceptions.get(piece, piece.replace('-', ' ').title())
+
+def display_name(api_name: str, species: str) -> str:
+    parts = api_name.split('-')
+    base = clean_api_piece(species)
+    if 'mega' in parts:
+        suffix = ' '.join((p.upper() if p in {'x', 'y'} else clean_api_piece(p) for p in parts[parts.index('mega') + 1:]))
+        return f"Mega {base}{(' ' + suffix if suffix else '')}"
+    if 'gmax' in parts:
+        return f'Gigantamax {base}'
+    for key, adjective in REGIONS.items():
+        if key in parts:
+            extra = [p for p in parts if p not in species.split('-') and p != key]
+            extra_text = ' ' + ' '.join((clean_api_piece(p) for p in extra)) if extra else ''
+            return f'{adjective} {base}{extra_text}'
+    if len(parts) > len(species.split('-')):
+        extra = api_name[len(species):].strip('-')
+        if extra:
+            return f'{base} ({clean_api_piece(extra)})'
+    return base
+
+def roman_generation_to_int(gen_name: str) -> int:
+    key = gen_name.split('-')[-1].lower()
+    return GEN_ROMAN.get(key, 0)
+
+def gameplay_generation(api_name: str, species_gen: int) -> int:
+    tokens = set(api_name.split('-'))
+    if 'mega' in tokens or 'primal' in tokens:
+        return 6
+    if 'alola' in tokens:
+        return 7
+    if 'galar' in tokens or 'hisui' in tokens or 'gmax' in tokens:
+        return 8
+    if 'paldea' in tokens:
+        return 9
+    return species_gen
+
+def url_json(url: str, timeout: int=30) -> dict:
+    req = urllib.request.Request(url, headers={'User-Agent': 'PurePythonPokedoku/1.0'})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return json.loads(r.read().decode('utf-8'))
+
+def fetch_with_retries(url: str, tries: int=3) -> dict:
+    last_error: Optional[Exception] = None
+    for attempt in range(tries):
+        try:
+            return url_json(url)
+        except Exception as e:
+            last_error = e
+            time.sleep(0.6 * (attempt + 1))
+    raise RuntimeError(f'Could not fetch {url}: {last_error}')
+
+def fetch_named_resource(url: str) -> dict:
+    return fetch_with_retries(url)
+
+def build_dataset() -> List[Pokemon]:
+    print('Downloading Pokemon list from PokeAPI...')
+    listing = fetch_with_retries(f'{POKEAPI}/pokemon?limit=20000')
+    resources = listing['results']
+    skip_tokens = {'totem', 'starter', 'battle-bond', 'school', 'gulping', 'gorging', 'gulping', 'amped-gmax', 'low-key-gmax', 'eternamax', 'eternal', 'busted', 'complete', 'hangry', 'hero', 'build'}
+    print(f'Downloading {len(resources)} Pokemon/form records... this may take a minute on first run.')
+    pokemon_details: List[dict] = []
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+        futs = {ex.submit(fetch_named_resource, r['url']): r['name'] for r in resources}
+        done = 0
+        for fut in as_completed(futs):
+            done += 1
+            if done % 100 == 0:
+                print(f'  Pokemon/form records: {done}/{len(resources)}')
+            try:
+                data = fut.result()
+            except Exception as e:
+                print(f'  Skipped {futs[fut]}: {e}')
+                continue
+            name = data.get('name', '')
+            tokens = set(name.split('-'))
+            important_form = bool(tokens & {'mega', 'gmax', 'alola', 'galar', 'hisui', 'paldea', 'primal'})
+            if not data.get('is_default', False) and (not important_form):
+                continue
+            if tokens & skip_tokens and (not important_form):
+                continue
+            pokemon_details.append(data)
+    species_urls = sorted({p['species']['url'] for p in pokemon_details})
+    print(f'Downloading {len(species_urls)} species records...')
+    species_by_name: Dict[str, dict] = {}
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+        futs = {ex.submit(fetch_named_resource, url): url for url in species_urls}
+        done = 0
+        for fut in as_completed(futs):
+            done += 1
+            if done % 100 == 0:
+                print(f'  Species records: {done}/{len(species_urls)}')
+            try:
+                sp = fut.result()
+                species_by_name[sp['name']] = sp
+            except Exception as e:
+                print(f'  Skipped species {futs[fut]}: {e}')
+    evolves_from_names = {sp['evolves_from_species']['name'] for sp in species_by_name.values() if sp.get('evolves_from_species')}
+    result: List[Pokemon] = []
+    seen_api_names: Set[str] = set()
+    for data in pokemon_details:
+        api_name = data['name']
+        if api_name in seen_api_names:
+            continue
+        seen_api_names.add(api_name)
+        species_name = data['species']['name']
+        sp = species_by_name.get(species_name)
+        if not sp:
+            continue
+        tokens = set(api_name.split('-'))
+        region = ''
+        for key, adjective in REGIONS.items():
+            if key in tokens:
+                region = adjective
+                break
+        mega = 'mega' in tokens or 'primal' in tokens
+        gigantamax = 'gmax' in tokens
+        dynamax = not mega and species_name not in NO_DYNAMAX_SPECIES
+        types = tuple((t['type']['name'].title() for t in sorted(data['types'], key=lambda x: x['slot'])))
+        species_gen = roman_generation_to_int(sp.get('generation', {}).get('name', ''))
+        gen = gameplay_generation(api_name, species_gen)
+        if gen < 1 or gen > 9:
+            continue
+        result.append(Pokemon(name=display_name(api_name, species_name), api_name=api_name, species=species_name, types=types, gen=gen, legendary=bool(sp.get('is_legendary')), mythical=bool(sp.get('is_mythical')), starter=species_name in STARTER_SPECIES, fully_evolved=species_name not in evolves_from_names or mega or gigantamax, baby=bool(sp.get('is_baby')), regional=region, mega=mega, gigantamax=gigantamax, dynamax=dynamax, form='-'.join(api_name.split('-')[len(species_name.split('-')):])))
+    result.sort(key=lambda p: (p.gen, p.species, p.api_name))
+    return result
+
+def save_dataset(data: List[Pokemon], path: str=DATA_FILE) -> None:
+    serializable = []
+    for p in data:
+        d = asdict(p)
+        d['types'] = list(p.types)
+        serializable.append(d)
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump({'version': 2, 'count': len(data), 'pokemon': serializable}, f, indent=2)
+
+def load_dataset(path: str=DATA_FILE) -> List[Pokemon]:
+    with open(path, 'r', encoding='utf-8') as f:
+        raw = json.load(f)
+    result = []
+    for d in raw['pokemon']:
+        d['types'] = tuple(d['types'])
+        result.append(Pokemon(**d))
+    return result
+
+def ensure_dataset(force_sync: bool=False) -> List[Pokemon]:
+    if force_sync or not os.path.exists(DATA_FILE):
+        if not force_sync:
+            print('Full Gen 1-9 data cache not found.')
+        try:
+            data = build_dataset()
+            if len(data) < 1000:
+                raise RuntimeError(f'Downloaded dataset seems too small: {len(data)} entries')
+            save_dataset(data)
+            print(f'Saved {len(data)} Pokemon/forms to {DATA_FILE}.')
+            return data
+        except Exception as e:
+            print(f'Could not build full dataset: {e}')
+            if os.path.exists(DATA_FILE):
+                print('Using existing cached data instead.')
+                return load_dataset()
+            print("Using tiny fallback dataset. Run with internet later and choose 'sync'.")
+            return FALLBACK_POKEMON
+    return load_dataset()
+
+def add_alias(mapping: Dict[str, Pokemon], alias: str, pokemon: Pokemon) -> None:
+    key = normalize(alias)
+    if key and key not in mapping:
+        mapping[key] = pokemon
+
+def build_name_map(data: Sequence[Pokemon]) -> Dict[str, Pokemon]:
+    mapping: Dict[str, Pokemon] = {}
+    for p in data:
+        add_alias(mapping, p.name, p)
+        add_alias(mapping, p.api_name, p)
+        add_alias(mapping, p.api_name.replace('-', ' '), p)
+        add_alias(mapping, p.species, p)
+        parts = p.api_name.split('-')
+        base = clean_api_piece(p.species)
+        if p.mega:
+            suffix = ' '.join((x.upper() if x in {'x', 'y'} else clean_api_piece(x) for x in parts if x not in p.species.split('-') and x not in {'mega', 'primal'}))
+            add_alias(mapping, f'Mega {base} {suffix}', p)
+            add_alias(mapping, f'{base} Mega {suffix}', p)
+            if 'primal' in parts:
+                add_alias(mapping, f'Primal {base}', p)
+        if p.gigantamax:
+            add_alias(mapping, f'Gigantamax {base}', p)
+            add_alias(mapping, f'Gmax {base}', p)
+            add_alias(mapping, f'{base} Gmax', p)
+        if p.regional:
+            add_alias(mapping, f'{p.regional} {base}', p)
+            add_alias(mapping, f"{p.regional.replace('ian', '').replace('an', 'a')} {base}", p)
+    return mapping
+
+def has_type(t: str) -> Callable[[Pokemon], bool]:
+    return lambda p: t in p.types
+
+def build_categories() -> List[Category]:
+    cats: List[Category] = []
+    for t in TYPES:
+        cats.append(Category(f'{t} type', has_type(t), 'type'))
+    for g in range(1, 10):
+        cats.append(Category(f'Generation {g}', lambda p, g=g: p.gen == g, 'gen'))
+    cats.extend([Category('Legendary', lambda p: p.legendary, 'special'), Category('Mythical', lambda p: p.mythical, 'special'), Category('Starter', lambda p: p.starter, 'special'), Category('Fully evolved', lambda p: p.fully_evolved, 'special'), Category('Baby Pokemon', lambda p: p.baby, 'special'), Category('Regional variant', lambda p: bool(p.regional), 'form'), Category('Alolan form', lambda p: p.regional == 'Alolan', 'form'), Category('Galarian form', lambda p: p.regional == 'Galarian', 'form'), Category('Hisuian form', lambda p: p.regional == 'Hisuian', 'form'), Category('Paldean form', lambda p: p.regional == 'Paldean', 'form'), Category('Mega Evolution', lambda p: p.mega, 'form'), Category('Gigantamax form', lambda p: p.gigantamax, 'form'), Category('Can Dynamax', lambda p: p.dynamax, 'form')])
+    return cats
+
+def cell_solutions(row: Category, col: Category) -> List[Pokemon]:
+    return [p for p in POKEMON if row.check(p) and col.check(p)]
+
+def generate_puzzle() -> Puzzle:
+    if not POKEMON:
+        raise RuntimeError('Dataset not loaded.')
+    pools = {'type': [c for c in CATEGORIES if c.kind == 'type'], 'gen': [c for c in CATEGORIES if c.kind == 'gen'], 'special': [c for c in CATEGORIES if c.kind == 'special'], 'form': [c for c in CATEGORIES if c.kind == 'form']}
+    attempts = 0
+    while True:
+        attempts += 1
+        rows = tuple(random.sample(pools['type'], 3))
+        col_pool = pools['gen'] + pools['special'] + pools['form'] + random.sample(pools['type'], 4)
+        cols = tuple(random.sample(col_pool, 3))
+        if {c.label for c in rows} & {c.label for c in cols}:
+            continue
+        if sum((c.kind == 'form' for c in cols)) > 1 and attempts < 300:
+            continue
+        if sum((c.kind == 'type' for c in cols)) > 1 and attempts < 300:
+            continue
+        sols: Dict[Tuple[int, int], List[Pokemon]] = {}
+        ok = True
+        min_needed = 2 if attempts < 400 else 1
+        max_needed = 350
+        for r, row in enumerate(rows):
+            for c, col in enumerate(cols):
+                answers = cell_solutions(row, col)
+                if len(answers) < min_needed:
+                    ok = False
+                    break
+                if len(answers) > max_needed and attempts < 250:
+                    ok = False
+                    break
+                sols[r, c] = answers
+            if not ok:
+                break
+        if ok:
+            return Puzzle(rows=rows, cols=cols, solutions=sols)
+
+def fit(text: str, width: int) -> str:
+    return text if len(text) <= width else text[:width - 1] + '…'
+
+def print_board(puzzle: Puzzle, guesses: Dict[Tuple[int, int], Pokemon], used_species_or_forms: Set[str], wrong: int, max_wrong: int) -> None:
+    cell_w = 19
+    left_w = 19
+    total_w = left_w + (cell_w + 3) * 3
+    print('\n' + '=' * total_w)
+    print(f'Wrong guesses: {wrong}/{max_wrong} | Used answers: {len(used_species_or_forms)} | Dataset: {len(POKEMON)} Pokemon/forms')
+    print('-' * total_w)
+    header = ' ' * left_w + ' | '.join((fit(c.label, cell_w).center(cell_w) for c in puzzle.cols))
+    print(header)
+    print('-' * len(header))
+    for r, row in enumerate(puzzle.rows):
+        parts = []
+        for c in range(3):
+            p = guesses.get((r, c))
+            parts.append(fit(p.name if p else f'{r + 1},{c + 1}', cell_w).center(cell_w))
+        print(fit(row.label, left_w).ljust(left_w) + ' | '.join(parts))
+    print('=' * total_w)
+
+def explain_cell(puzzle: Puzzle, r: int, c: int, limit: int=14) -> str:
+    answers = sorted((p.name for p in puzzle.solutions[r, c]))
+    shown = ', '.join(answers[:limit])
+    more = '' if len(answers) <= limit else f', ... +{len(answers) - limit} more'
+    return f'Cell {r + 1},{c + 1} needs {puzzle.rows[r].label} + {puzzle.cols[c].label}. Examples: {shown}{more}'
+
+def parse_cell(text: str) -> Optional[Tuple[int, int]]:
+    m = re.fullmatch('\\s*([1-3])\\s*[, ]\\s*([1-3])\\s*', text)
+    if not m:
+        return None
+    return (int(m.group(1)) - 1, int(m.group(2)) - 1)
+
+def print_intro() -> None:
+    print('\nPOKEDOKU - Pure Python Gen 1-9 Edition')
+    print('Includes regional variants, Mega Evolutions, Gigantamax forms, and Dynamax clues.')
+    print(textwrap.dedent('\n    Rules:\n      • Fill each cell with a Pokemon/form that matches BOTH its row and column clue.\n      • You cannot use the same exact answer twice.\n      • Type a cell like 1,2, then type a Pokemon name/form.\n      • Example accepted names: Charizard, Mega Charizard X, Alolan Raichu, Gmax Charizard.\n      • Commands: hint, answers, list, search, stats, sync, new, quit\n    ').strip())
+
+def print_stats() -> None:
+    print(f'Dataset entries: {len(POKEMON)} Pokemon/forms')
+    for g in range(1, 10):
+        print(f'  Gen {g}: {sum((1 for p in POKEMON if p.gen == g))}')
+    print(f'  Regional variants: {sum((1 for p in POKEMON if p.regional))}')
+    print(f'  Mega/Primal forms: {sum((1 for p in POKEMON if p.mega))}')
+    print(f'  Gigantamax forms: {sum((1 for p in POKEMON if p.gigantamax))}')
+    print(f'  Can Dynamax: {sum((1 for p in POKEMON if p.dynamax))}')
+
+def command_list() -> None:
+    names = ', '.join(sorted((p.name for p in POKEMON)))
+    for line in textwrap.wrap(names, width=100):
+        print('  ' + line)
+
+def command_search(term: str) -> None:
+    key = normalize(term)
+    found = [p for p in POKEMON if key in normalize(p.name) or key in normalize(p.api_name) or key in normalize(p.species)]
+    if not found:
+        print('No matches.')
+        return
+    for p in found[:80]:
+        tags = []
+        if p.regional:
+            tags.append(p.regional)
+        if p.mega:
+            tags.append('Mega/Primal')
+        if p.gigantamax:
+            tags.append('Gmax')
+        if p.legendary:
+            tags.append('Legendary')
+        if p.mythical:
+            tags.append('Mythical')
+        print(f"  {p.name:28} Gen {p.gen} | {'/'.join(p.types):16} {' | '.join(tags)}")
+    if len(found) > 80:
+        print(f'  ... +{len(found) - 80} more')
+
+def reload_globals(force_sync: bool=False) -> None:
+    global POKEMON, NAME_MAP, CATEGORIES
+    POKEMON = ensure_dataset(force_sync=force_sync)
+    NAME_MAP = build_name_map(POKEMON)
+    CATEGORIES = build_categories()
+
+def play() -> None:
+    random.seed()
+    max_wrong = 5
+    reload_globals(force_sync='--sync' in sys.argv)
+    print_intro()
+    while True:
+        puzzle = generate_puzzle()
+        guesses: Dict[Tuple[int, int], Pokemon] = {}
+        used: Set[str] = set()
+        wrong = 0
+        while True:
+            print_board(puzzle, guesses, used, wrong, max_wrong)
+            if len(guesses) == 9:
+                print('You solved it! Nice Pokedoku skills. 🎉')
+                break
+            if wrong >= max_wrong:
+                print('Game over! Here are valid examples for each empty cell:')
+                for r in range(3):
+                    for c in range(3):
+                        if (r, c) not in guesses:
+                            print('  ' + explain_cell(puzzle, r, c))
+                break
+            raw = input('Choose cell or command > ').strip()
+            cmd = raw.lower()
+            if cmd in {'q', 'quit', 'exit'}:
+                print('Thanks for playing!')
+                return
+            if cmd in {'n', 'new'}:
+                print('Starting a new puzzle...')
+                break
+            if cmd == 'list':
+                command_list()
+                continue
+            if cmd.startswith('search'):
+                term = raw[6:].strip() or input('Search for > ').strip()
+                command_search(term)
+                continue
+            if cmd == 'stats':
+                print_stats()
+                continue
+            if cmd == 'sync':
+                print('Rebuilding full Gen 1-9 data cache...')
+                reload_globals(force_sync=True)
+                print_stats()
+                print('Starting a new puzzle with updated data...')
+                break
+            if cmd == 'answers':
+                for r in range(3):
+                    for c in range(3):
+                        print('  ' + explain_cell(puzzle, r, c))
+                continue
+            if cmd == 'hint':
+                empty = [(r, c) for r in range(3) for c in range(3) if (r, c) not in guesses]
+                if empty:
+                    print('  ' + explain_cell(puzzle, *random.choice(empty), limit=5))
+                continue
+            cell = parse_cell(raw)
+            if cell is None:
+                print('Please enter a cell as row,column, for example: 2,3')
+                continue
+            if cell in guesses:
+                print('That cell is already filled.')
+                continue
+            guess_text = input('Pokemon/form name > ').strip()
+            guess_key = normalize(guess_text)
+            pokemon = NAME_MAP.get(guess_key)
+            if pokemon is None:
+                print("I don't know that Pokemon/form. Try 'search pikachu' or 'list'.")
+                wrong += 1
+                continue
+            answer_id = normalize(pokemon.api_name)
+            if answer_id in used:
+                print(f'You already used {pokemon.name}. No repeats allowed.')
+                wrong += 1
+                continue
+            valid_ids = {normalize(p.api_name) for p in puzzle.solutions[cell]}
+            if answer_id in valid_ids:
+                guesses[cell] = pokemon
+                used.add(answer_id)
+                print(f'Correct: {pokemon.name}!')
+            else:
+                r, c = cell
+                print(f'Nope. {pokemon.name} does not match {puzzle.rows[r].label} + {puzzle.cols[c].label}.')
+                wrong += 1
+        again = input('Play another puzzle? [y/n] > ').strip().lower()
+        if again not in {'y', 'yes', ''}:
+            print('Thanks for playing!')
+            return
+if __name__ == '__main__':
+    play()
